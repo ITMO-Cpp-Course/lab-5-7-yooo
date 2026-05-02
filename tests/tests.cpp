@@ -1,8 +1,8 @@
 #define CATCH_CONFIG_MAIN
 
-#include "C:\Users\zmax1\CLionProjects\lab-5-7-yooo\src\lib\Document.h"
-#include "C:\Users\zmax1\CLionProjects\lab-5-7-yooo\src\lib\DocumentBuilder.h"
-#include "C:\Users\zmax1\CLionProjects\lab-5-7-yooo\src\lib\InvertedIndex.h"
+#include "Document.h"
+#include "DocumentBuilder.h"
+#include "InvertedIndex.h"
 #include <catch2/catch_all.hpp>
 
 using namespace lab5;

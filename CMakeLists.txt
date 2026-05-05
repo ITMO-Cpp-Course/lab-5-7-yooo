@@ -34,15 +34,9 @@ enable_testing()
 # AddressSanitizer (ASan) as an interface target
 # Sanitizers are not supported on Windows (neither MSVC nor MinGW)
 if (ENABLE_SANITIZERS AND NOT WIN32)
-    add_library(project_sanitizers INTERFACE
-            src/lib/Document.h
-            src/lib/DocumentBuilder.h
-            src/Document.cpp
-            src/DocumentBuilder.cpp
-            src/lib/InvertedIndex.h
-            src/InvertedIndex.cpp)
+    add_library(project_sanitizers INTERFACE)
     target_compile_options(project_sanitizers INTERFACE $<$<CONFIG:Debug>:-fsanitize=address -fno-omit-frame-pointer>)
-    target_link_options(project_sanitizers INTERFACE    $<$<CONFIG:Debug>:-fsanitize=address>)
+    target_link_options(project_sanitizers INTERFACE $<$<CONFIG:Debug>:-fsanitize=address>)
 endif ()
 
 add_subdirectory(src)

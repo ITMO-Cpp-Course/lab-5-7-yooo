@@ -1,13 +1,15 @@
 #include "InvertedIndex.h"
 
+#include <optional>
+
 namespace lab5
 {
 
-void InvertedIndex::AddDocument(ParsedDocument parsed_doc)
+void InvertedIndex::AddDocument(ParsedDocument&& parsed_doc)
 {
-    std::size_t doc_id = parsed_doc.doc.GetId();
+    doc_id_t doc_id = parsed_doc.doc.GetId();
 
-    for (const std::string& word : parsed_doc.words)
+    for (const word_t& word : parsed_doc.words)
     {
         index_[word][doc_id]++;
     }
@@ -15,7 +17,7 @@ void InvertedIndex::AddDocument(ParsedDocument parsed_doc)
     docs_.insert({doc_id, std::move(parsed_doc.doc)});
 }
 
-void InvertedIndex::RemoveDocument(std::size_t doc_id)
+void InvertedIndex::RemoveDocument(doc_id_t doc_id)
 {
     if (docs_.erase(doc_id) == 0)
         return;
@@ -45,14 +47,12 @@ std::unordered_map<std::size_t, std::size_t> InvertedIndex::Search(const std::st
     return {};
 }
 
-const Document* InvertedIndex::GetDocument(std::size_t doc_id) const
+std::optional<std::reference_wrapper<const Document>> InvertedIndex::GetDocument(doc_id_t doc_id) const
 {
     auto it = docs_.find(doc_id);
     if (it != docs_.end())
-    {
-        return &it->second;
-    }
-    return nullptr;
+        return std::cref(it->second);
+    return std::nullopt;
 }
 
 } // namespace lab5

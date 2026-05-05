@@ -73,8 +73,8 @@ TEST_CASE("InvertedIndex operations", "[index]")
         CHECK(results_hello.count(1) == 0);
         CHECK(results_hello[2] == 1);
 
-        CHECK(index.GetDocument(1) == nullptr);
-        REQUIRE(index.GetDocument(2) != nullptr);
+        CHECK(!index.GetDocument(1).has_value());
+        REQUIRE(index.GetDocument(2).has_value());
     }
 
     SECTION("Removing a non-existent document does not break state")
@@ -83,5 +83,19 @@ TEST_CASE("InvertedIndex operations", "[index]")
 
         auto results_hello = index.Search("hello");
         REQUIRE(results_hello.size() == 2);
+    }
+    SECTION("Handles various punctuation marks as separators")
+    {
+        auto parsed = builder.Build(3, "punct.txt", "one?two;three:four-five(six)seven/eight");
+
+        REQUIRE(parsed.words.size() == 8);
+        CHECK(parsed.words[0] == "one");
+        CHECK(parsed.words[1] == "two");
+        CHECK(parsed.words[2] == "three");
+        CHECK(parsed.words[3] == "four");
+        CHECK(parsed.words[4] == "five");
+        CHECK(parsed.words[5] == "six");
+        CHECK(parsed.words[6] == "seven");
+        CHECK(parsed.words[7] == "eight");
     }
 }

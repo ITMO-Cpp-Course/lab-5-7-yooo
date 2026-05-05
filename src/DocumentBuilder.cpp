@@ -1,4 +1,4 @@
-#include "DocumentBuilder.h"
+#include "DocumentBuilder.hpp"
 #include <cctype>
 
 namespace lab5

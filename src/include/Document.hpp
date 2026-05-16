@@ -1,5 +1,4 @@
 #pragma once
-#include <cstddef> // ╨┤╨╗╤Å std::size_t
 #include <string>
 
 namespace lab5

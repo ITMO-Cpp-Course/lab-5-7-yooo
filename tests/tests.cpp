@@ -184,7 +184,7 @@ TEST_CASE("IndexStore and UpdateTransaction", "[store]")
 
     SECTION("Transactions - complex operations correctly applied")
     {
-        //проверяем результат через REQUIRE
+        // проверяем результат через REQUIRE
         REQUIRE(store.AddDocument(builder.Build(1, "doc1.txt", "keep me")).has_value());
         REQUIRE(store.AddDocument(builder.Build(2, "doc2.txt", "remove me")).has_value());
 

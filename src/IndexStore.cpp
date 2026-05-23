@@ -2,33 +2,6 @@
 
 namespace lab5
 {
-
-Result<void> IndexStore::AddDocument(ParsedDocument&& doc)
-{
-    auto tx_res = BeginTransaction();
-    if (!tx_res)
-        return std::unexpected(tx_res.error());
-
-    auto add_res = tx_res->AddDocument(std::move(doc));
-    if (!add_res)
-        return add_res;
-
-    return tx_res->Commit();
-}
-
-Result<void> IndexStore::RemoveDocument(std::size_t doc_id)
-{
-    auto tx_res = BeginTransaction();
-    if (!tx_res)
-        return std::unexpected(tx_res.error());
-
-    auto rm_res = tx_res->RemoveDocument(doc_id);
-    if (!rm_res)
-        return rm_res;
-
-    return tx_res->Commit();
-}
-
 Result<std::unordered_map<std::size_t, std::size_t>> IndexStore::Search(const std::string& word) const
 {
     return index_.Search(word);

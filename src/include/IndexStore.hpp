@@ -18,8 +18,6 @@ class IndexStore
   public:
     IndexStore() = default;
 
-    Result<void> AddDocument(ParsedDocument&& doc);
-    Result<void> RemoveDocument(std::size_t doc_id);
     Result<std::unordered_map<std::size_t, std::size_t>> Search(const std::string& word) const;
     Result<std::reference_wrapper<const Document>> GetDocument(std::size_t doc_id) const;
 
